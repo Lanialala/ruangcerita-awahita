@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ruang Cerita — Teman Mendengar Tanpa Menghakimi</title>
+  <title>RuangCerita by Awahita — Teman Mendengar Tanpa Menghakimi</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
       color: #292524;
     }
     .glass-card {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(8px);
       border: 1px solid #E6DFD5;
     }
@@ -52,194 +52,376 @@
       background-color: #F2F6F4;
       box-shadow: 0 4px 12px rgba(61, 107, 88, 0.12);
     }
+    .nav-tab.active {
+      color: #2E5344;
+      font-weight: 700;
+      border-bottom: 2px solid #3D6B58;
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-sage-100 selection:text-sage-800">
 
   <!-- Navbar -->
-  <header class="sticky top-0 z-40 bg-sand-50/90 backdrop-blur-md border-b border-sand-200">
+  <header class="sticky top-0 z-40 bg-sand-50/95 backdrop-blur-md border-b border-sand-200">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
+      <button onclick="switchView('pencerita')" class="flex items-center gap-2.5 text-left">
         <div class="w-9 h-9 rounded-xl bg-sage-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
-          R
+          A
         </div>
         <div>
           <span class="font-bold text-stone-800 tracking-tight text-lg">RuangCerita</span>
-          <span class="hidden sm:inline-block text-xs text-stone-500 ml-2 border-l border-stone-300 pl-2">Aman &bull; Anonim &bull; Empatik</span>
+          <span class="hidden sm:inline-block text-xs text-stone-500 ml-2 border-l border-stone-300 pl-2">by Awahita</span>
         </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <a href="#cara-kerja" class="text-sm text-stone-600 hover:text-sage-700 hidden sm:inline">Cara Kerja</a>
-        <a href="#matching-section" class="px-4 py-2 rounded-full bg-sage-600 hover:bg-sage-700 text-white text-sm font-medium transition shadow-sm">
+      </button>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex items-center gap-4 sm:gap-6">
+        <button id="tab-pencerita" onclick="switchView('pencerita')" class="nav-tab active py-5 text-xs sm:text-sm text-stone-600 hover:text-sage-700 transition">
           Cari Pendengar
-        </a>
-      </div>
+        </button>
+        <button id="tab-pendengar" onclick="switchView('pendengar')" class="nav-tab py-5 text-xs sm:text-sm text-stone-600 hover:text-sage-700 transition">
+          SOP &amp; Gabung Pendengar
+        </button>
+        <button id="tab-promosi" onclick="switchView('promosi')" class="nav-tab py-5 text-xs sm:text-sm text-stone-600 hover:text-sage-700 transition">
+          Kit Promosi
+        </button>
+      </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="pt-12 pb-10 sm:pt-16 sm:pb-14 px-4 sm:px-6">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sage-100 text-sage-800 text-xs font-semibold mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        Ruang Aman Tanpa Identitas Asli (100% Rahasia)
-      </div>
-      <h1 class="text-3xl sm:text-5xl font-bold text-stone-900 leading-tight tracking-tight mb-5">
-        Terlalu berat dipendam sendiri, tapi bingung mau cerita ke siapa?
-      </h1>
-      <p class="text-base sm:text-lg text-stone-600 leading-relaxed mb-8 max-w-2xl mx-auto">
-        Temukan teman pendengar terlatih atau konselor yang pernah berada di posisimu—mulai dari tekanan karier, lelah jadi generasi <em>sandwich</em>, hingga rasa sepi di perantauan.
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="#matching-section" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-sage-600 hover:bg-sage-700 text-white font-semibold text-base transition shadow-md">
-          Mulai Pencocokan (1 Menit)
-        </a>
-        <a href="#katalog-pendengar" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-sand-100 text-stone-700 border border-sand-200 font-medium text-base transition">
-          Lihat Semua Pendengar
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Matching Wizard -->
-  <section id="matching-section" class="py-10 px-4 sm:px-6">
-    <div class="max-w-3xl mx-auto glass-card rounded-3xl p-6 sm:p-9 shadow-sm">
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-sand-200">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-bold text-stone-800">Temukan Pendengar yang Pas</h2>
-          <p class="text-sm text-stone-500 mt-0.5">Jawab 3 hal singkat agar kami menyaringkan pendengar terbaik untukmu.</p>
+  <!-- ========================================================= -->
+  <!-- VIEW 1: UTAMA (UNTUK PENCERITA / SEEKER)                  -->
+  <!-- ========================================================= -->
+  <main id="view-pencerita" class="block">
+    <!-- Hero Section -->
+    <section class="pt-12 pb-10 sm:pt-16 sm:pb-14 px-4 sm:px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sage-100 text-sage-800 text-xs font-semibold mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Ruang Aman Tanpa Identitas Asli (100% Rahasia)
         </div>
-        <button onclick="resetMatching()" class="text-xs text-stone-500 hover:text-sage-700 underline">
-          Reset Pilihan
+        <h1 class="text-3xl sm:text-5xl font-bold text-stone-900 leading-tight tracking-tight mb-5">
+          Terlalu berat dipendam sendiri, tapi bingung mau cerita ke siapa?
+        </h1>
+        <p class="text-base sm:text-lg text-stone-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+          Temukan teman pendengar terlatih atau konselor yang pernah berada di posisimu—mulai dari tekanan karier, lelah jadi generasi <em>sandwich</em>, hingga rasa sepi di perantauan.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="#matching-section" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-sage-600 hover:bg-sage-700 text-white font-semibold text-base transition shadow-md">
+            Mulai Pencocokan (1 Menit)
+          </a>
+          <a href="#katalog-pendengar" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-sand-100 text-stone-700 border border-sand-200 font-medium text-base transition">
+            Lihat Semua Pendengar
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Matching Wizard -->
+    <section id="matching-section" class="py-8 px-4 sm:px-6">
+      <div class="max-w-3xl mx-auto glass-card rounded-3xl p-6 sm:p-9 shadow-sm">
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-sand-200">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-stone-800">Temukan Pendengar yang Pas</h2>
+            <p class="text-sm text-stone-500 mt-0.5">Jawab 3 hal singkat agar kami menyaringkan pendengar terbaik untukmu.</p>
+          </div>
+          <button onclick="resetMatching()" class="text-xs text-stone-500 hover:text-sage-700 underline">
+            Reset Pilihan
+          </button>
+        </div>
+
+        <!-- Step 1: Topik -->
+        <div class="mb-7">
+          <label class="block text-sm font-bold text-stone-800 mb-3">
+            1. Apa beban pikiran utama yang sedang kamu rasakan?
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="topic-options">
+            <button type="button" onclick="selectOption('topic', 'karier', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
+              <div class="font-semibold text-stone-800 text-sm">Karier &amp; Burnout Kerja</div>
+              <div class="text-xs text-stone-500 mt-1">Tekanan target, overwork, toxic office, bingung arah karier.</div>
+            </button>
+            <button type="button" onclick="selectOption('topic', 'keluarga', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
+              <div class="font-semibold text-stone-800 text-sm">Keluarga &amp; Generasi Sandwich</div>
+              <div class="text-xs text-stone-500 mt-1">Beban finansial orang tua, konflik rumah tangga, pengasuhan.</div>
+            </button>
+            <button type="button" onclick="selectOption('topic', 'kesepian', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
+              <div class="font-semibold text-stone-800 text-sm">Kesepian &amp; Overthinking</div>
+              <div class="text-xs text-stone-500 mt-1">Stres di perantauan, insecure, merasa tertinggal dari teman sebaya.</div>
+            </button>
+            <button type="button" onclick="selectOption('topic', 'relasi', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
+              <div class="font-semibold text-stone-800 text-sm">Hubungan &amp; Asmara</div>
+              <div class="text-xs text-stone-500 mt-1">Patah hati, ragu melangkah ke pernikahan, komunikasi pasangan.</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Gaya Komunikasi -->
+        <div class="mb-7">
+          <label class="block text-sm font-bold text-stone-800 mb-3">
+            2. Respon seperti apa yang kamu butuhkan hari ini?
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="style-options">
+            <button type="button" onclick="selectOption('style', 'didengarkan', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
+              <div class="font-semibold text-stone-800 text-sm">Cukup Didengarkan &amp; Divalidasi</div>
+              <div class="text-xs text-stone-500 mt-1">Aku cuma butuh meluapkan isi kepala tanpa dinasihati atau digurui.</div>
+            </button>
+            <button type="button" onclick="selectOption('style', 'diskusi', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
+              <div class="font-semibold text-stone-800 text-sm">Teman Diskusi &amp; Sudut Pandang</div>
+              <div class="text-xs text-stone-500 mt-1">Bantu aku mengurai benang kusut dan melihat opsi langkah berikutnya.</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Tingkat Layanan -->
+        <div class="mb-7">
+          <label class="block text-sm font-bold text-stone-800 mb-3">
+            3. Pilih tipe pendamping yang kamu inginkan:
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="tier-options">
+            <button type="button" onclick="selectOption('tier', 'peer', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
+              <div class="flex justify-between items-center">
+                <span class="font-semibold text-stone-800 text-sm">Peer Listener Terlatih</span>
+                <span class="text-xs font-bold text-sage-700 bg-sage-100 px-2.5 py-0.5 rounded-full">Rp25rb - Rp35rb</span>
+              </div>
+              <div class="text-xs text-stone-500 mt-1">Teman cerita sebaya yang lolos kurasi empati. Cocok untuk curhat harian.</div>
+            </button>
+            <button type="button" onclick="selectOption('tier', 'konselor', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
+              <div class="flex justify-between items-center">
+                <span class="font-semibold text-stone-800 text-sm">Konselor / Praktisi Profesional</span>
+                <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">Rp120rb - Rp150rb</span>
+              </div>
+              <div class="text-xs text-stone-500 mt-1">Pendampingan terstruktur untuk masalah yang sudah berlarut-larut.</div>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" onclick="runMatching()" class="w-full py-3.5 rounded-2xl bg-sage-600 hover:bg-sage-700 text-white font-semibold text-base transition shadow-sm">
+          Tampilkan Rekomendasi Pendengar
         </button>
       </div>
+    </section>
 
-      <!-- Step 1: Topik -->
-      <div class="mb-7">
-        <label class="block text-sm font-bold text-stone-800 mb-3">
-          1. Apa beban pikiran utama yang sedang kamu rasakan?
-        </label>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="topic-options">
-          <button type="button" onclick="selectOption('topic', 'karier', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
-            <div class="font-semibold text-stone-800 text-sm">Karier &amp; Burnout Kerja</div>
-            <div class="text-xs text-stone-500 mt-1">Tekanan target, overwork, toxic office, bingung arah karier.</div>
-          </button>
-          <button type="button" onclick="selectOption('topic', 'keluarga', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
-            <div class="font-semibold text-stone-800 text-sm">Keluarga &amp; Generasi Sandwich</div>
-            <div class="text-xs text-stone-500 mt-1">Beban finansial orang tua, konflik rumah tangga, pengasuhan.</div>
-          </button>
-          <button type="button" onclick="selectOption('topic', 'kesepian', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
-            <div class="font-semibold text-stone-800 text-sm">Kesepian &amp; Overthinking</div>
-            <div class="text-xs text-stone-500 mt-1">Stres di perantauan, insecure, merasa tertinggal dari teman sebaya.</div>
-          </button>
-          <button type="button" onclick="selectOption('topic', 'relasi', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
-            <div class="font-semibold text-stone-800 text-sm">Hubungan &amp; Asmara</div>
-            <div class="text-xs text-stone-500 mt-1">Patah hati, ragu melangkah ke pernikahan, komunikasi pasangan.</div>
-          </button>
+    <!-- Result / Catalog Section -->
+    <section id="katalog-pendengar" class="py-10 px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-3">
+          <div>
+            <h3 id="result-title" class="text-xl sm:text-2xl font-bold text-stone-800">Pendengar yang Siap Mendengarkan</h3>
+            <p id="result-subtitle" class="text-sm text-stone-500 mt-1">Semua pendengar terikat kode etik kerahasiaan mutlak.</p>
+          </div>
+          <div class="flex gap-2 flex-wrap">
+            <button onclick="filterQuick('all')" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-800 text-white">Semua</button>
+            <button onclick="filterQuick('online')" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-sand-200 text-stone-700 hover:bg-sand-100">Sedang Online</button>
+            <button onclick="filterQuick('peer')" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-sand-200 text-stone-700 hover:bg-sand-100">Peer Listener</button>
+            <button onclick="filterQuick('konselor')" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-sand-200 text-stone-700 hover:bg-sand-100">Konselor</button>
+          </div>
+        </div>
+
+        <div id="listeners-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-12 px-4 sm:px-6 bg-sand-100/70 border-y border-sand-200 mt-8">
+      <div class="max-w-5xl mx-auto">
+        <h3 class="text-xl sm:text-2xl font-bold text-stone-800 text-center mb-8">Bagaimana Sesi Berlangsung?</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-2xl border border-sand-200">
+            <div class="w-8 h-8 rounded-lg bg-sage-100 text-sage-800 font-bold flex items-center justify-center text-sm mb-4">1</div>
+            <h4 class="font-bold text-stone-800 mb-2">Pilih &amp; Gunakan Nama Samaran</h4>
+            <p class="text-sm text-stone-600 leading-relaxed">Tidak perlu KTP, foto wajah, atau nama asli. Kamu bebas bercerita sebagai dirimu apa adanya tanpa beban sosial.</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-sand-200">
+            <div class="w-8 h-8 rounded-lg bg-sage-100 text-sage-800 font-bold flex items-center justify-center text-sm mb-4">2</div>
+            <h4 class="font-bold text-stone-800 mb-2">Konfirmasi Jadwal via Admin</h4>
+            <p class="text-sm text-stone-600 leading-relaxed">Klik booking, selesaikan pembayaran via QRIS, dan admin akan menghubungkanmu ke ruang obrolan privat (Chat / Voice tanpa kamera).</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-sand-200">
+            <div class="w-8 h-8 rounded-lg bg-sage-100 text-sage-800 font-bold flex items-center justify-center text-sm mb-4">3</div>
+            <h4 class="font-bold text-stone-800 mb-2">Ruang Bebas Penghakiman</h4>
+            <p class="text-sm text-stone-600 leading-relaxed">Sesi berdurasi 45 menit. Semua isi percakapan bersifat rahasia dan tidak disimpan setelah sesi berakhir.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- VIEW 2: SOP SELEKSI, PELATIHAN & REKRUTMEN PENDENGAR      -->
+  <!-- ========================================================= -->
+  <main id="view-pendengar" class="hidden py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="px-3.5 py-1.5 rounded-full bg-sage-100 text-sage-800 text-xs font-semibold">Standar Operasional &amp; Rekrutmen</span>
+        <h2 class="text-2xl sm:text-4xl font-bold text-stone-900 mt-4 mb-3">SOP Kurasi &amp; Pelatihan Pendengar</h2>
+        <p class="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto">
+          Kualitas RuangCerita bergantung pada empati pendengar. Berikut adalah standar wajib, modul pelatihan <em>Active Listening</em>, dan formulir pendaftaran calon pendengar.
+        </p>
+      </div>
+
+      <!-- 4 Pilar SOP -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+        <div class="bg-white p-6 rounded-3xl border border-sand-200">
+          <div class="text-xs font-bold text-sage-700 uppercase tracking-wider mb-2">Tahap 1 &bull; Kriteria Seleksi</div>
+          <h3 class="font-bold text-lg text-stone-800 mb-3">Syarat Calon Peer Listener</h3>
+          <ul class="text-sm text-stone-600 space-y-2 list-disc pl-4">
+            <li>Usia minimal 23 tahun dan memiliki stabilitas emosional yang baik.</li>
+            <li>Mampu menahan diri untuk <strong>tidak menggurui</strong> atau membandingkan nasib.</li>
+            <li>Memiliki komitmen menjaga kerahasiaan data dan cerita pengguna (NDA).</li>
+            <li>Lolos simulasi chat kasus selama 15 menit bersama tim kurator Awahita.</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-3xl border border-sand-200">
+          <div class="text-xs font-bold text-terracotta-600 uppercase tracking-wider mb-2">Tahap 2 &bull; Larangan Mutlak</div>
+          <h3 class="font-bold text-lg text-stone-800 mb-3">Kode Etik &amp; Batasan Sesi</h3>
+          <ul class="text-sm text-stone-600 space-y-2 list-disc pl-4">
+            <li><strong>Dilarang mendiagnosis</strong> gangguan mental (misal: menyebut "kamu depresi/bipolar").</li>
+            <li><strong>Dilarang meminta kontak pribadi</strong> (WA/IG) atau mengajak bertemu tatap muka.</li>
+            <li><strong>Dilarang menghakimi</strong> pilihan hidup, agama, atau latar belakang ekonomi pencerita.</li>
+            <li>Wajib langsung melaporkan ke Admin jika pencerita menunjukkan tanda <em>self-harm</em>.</li>
+          </ul>
         </div>
       </div>
 
-      <!-- Step 2: Gaya Komunikasi -->
-      <div class="mb-7">
-        <label class="block text-sm font-bold text-stone-800 mb-3">
-          2. Respon seperti apa yang kamu butuhkan hari ini?
-        </label>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="style-options">
-          <button type="button" onclick="selectOption('style', 'didengarkan', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
-            <div class="font-semibold text-stone-800 text-sm">Cukup Didengarkan &amp; Divalidasi</div>
-            <div class="text-xs text-stone-500 mt-1">Aku cuma butuh meluapkan isi kepala tanpa dinasihati atau digurui.</div>
-          </button>
-          <button type="button" onclick="selectOption('style', 'diskusi', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
-            <div class="font-semibold text-stone-800 text-sm">Teman Diskusi &amp; Sudut Pandang</div>
-            <div class="text-xs text-stone-500 mt-1">Bantu aku mengurai benang kusut dan melihat opsi langkah berikutnya.</div>
-          </button>
+      <!-- Modul Mini Active Listening -->
+      <div class="bg-sage-800 text-white rounded-3xl p-6 sm:p-8 mb-10">
+        <h3 class="text-xl font-bold mb-2">Panduan Praktis 3R dalam Mendengarkan</h3>
+        <p class="text-xs sm:text-sm text-sage-100 mb-6">Formula wajib yang digunakan setiap pendengar selama sesi 45 menit berlangsung:</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-sage-700/70 p-4 rounded-2xl border border-sage-600">
+            <div class="font-bold text-base mb-1">1. Receive (Terima Utuh)</div>
+            <p class="text-xs text-sage-100 leading-relaxed">Biarkan pencerita menuntaskan kalimatnya tanpa disela. Gunakan respon hangat seperti: <em>"Aku di sini, lanjutkan ceritamu pelan-pelan."</em></p>
+          </div>
+          <div class="bg-sage-700/70 p-4 rounded-2xl border border-sage-600">
+            <div class="font-bold text-base mb-1">2. Reflect (Validasi Emosi)</div>
+            <p class="text-xs text-sage-100 leading-relaxed">Cerminkan perasaan mereka tanpa mengecilkan masalah: <em>"Wajar banget kamu merasa capek kalau harus menanggung beban sendirian seperti itu."</em></p>
+          </div>
+          <div class="bg-sage-700/70 p-4 rounded-2xl border border-sage-600">
+            <div class="font-bold text-base mb-1">3. Reframe (Tanya Izin)</div>
+            <p class="text-xs text-sage-100 leading-relaxed">Jangan beri saran sebelum diminta. Selalu tanya: <em>"Hari ini kamu lebih ingin didengarkan saja, atau mau kita urai bareng opsi langkahnya?"</em></p>
+          </div>
         </div>
       </div>
 
-      <!-- Step 3: Tingkat Layanan -->
-      <div class="mb-7">
-        <label class="block text-sm font-bold text-stone-800 mb-3">
-          3. Pilih tipe pendamping yang kamu inginkan:
-        </label>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="tier-options">
-          <button type="button" onclick="selectOption('tier', 'peer', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
-            <div class="flex justify-between items-center">
-              <span class="font-semibold text-stone-800 text-sm">Peer Listener Terlatih</span>
-              <span class="text-xs font-bold text-sage-700 bg-sage-100 px-2.5 py-0.5 rounded-full">Rp25rb - Rp35rb</span>
-            </div>
-            <div class="text-xs text-stone-500 mt-1">Teman cerita sebaya yang lolos kurasi empati. Cocok untuk curhat harian.</div>
-          </button>
-          <button type="button" onclick="selectOption('tier', 'konselor', this)" class="option-card text-left p-4 rounded-2xl border border-sand-200 bg-white hover:border-sage-600 transition">
-            <div class="flex justify-between items-center">
-              <span class="font-semibold text-stone-800 text-sm">Konselor / Praktisi Profesional</span>
-              <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">Rp120rb - Rp150rb</span>
-            </div>
-            <div class="text-xs text-stone-500 mt-1">Pendampingan terstruktur untuk masalah yang sudah berlarut-larut.</div>
-          </button>
-        </div>
-      </div>
+      <!-- Form Pendaftaran Pendengar -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8">
+        <h3 class="text-xl font-bold text-stone-800 mb-1">Formulir Pendaftaran Mitra Pendengar / Konselor</h3>
+        <p class="text-sm text-stone-500 mb-6">Bagi hasil hingga 75% per sesi dengan jadwal fleksibel dari rumah.</p>
 
-      <button type="button" onclick="runMatching()" class="w-full py-3.5 rounded-2xl bg-sage-600 hover:bg-sage-700 text-white font-semibold text-base transition shadow-sm">
-        Tampilkan Rekomendasi Pendengar
-      </button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1.5">Nama Lengkap / Panggilan</label>
+            <input type="text" id="reg-name" placeholder="Nama Anda" class="w-full px-3.5 py-2.5 rounded-xl border border-sand-200 text-sm bg-white focus:outline-none focus:border-sage-600" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1.5">Usia &amp; Domisili</label>
+            <input type="text" id="reg-age" placeholder="Contoh: 28 tahun, Yogyakarta" class="w-full px-3.5 py-2.5 rounded-xl border border-sand-200 text-sm bg-white focus:outline-none focus:border-sage-600" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1.5">Peran yang Dilamar</label>
+            <select id="reg-role" class="w-full px-3.5 py-2.5 rounded-xl border border-sand-200 text-sm bg-white focus:outline-none focus:border-sage-600">
+              <option value="Peer Listener Terlatih">Peer Listener Terlatih (Non-Klinis)</option>
+              <option value="Konselor / Lulusan Psikologi">Konselor / Praktisi Psikologi</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1.5">Topik yang Paling Dikuasai</label>
+            <input type="text" id="reg-topic" placeholder="Misal: Burnout kerja, Generasi Sandwich" class="w-full px-3.5 py-2.5 rounded-xl border border-sand-200 text-sm bg-white focus:outline-none focus:border-sage-600" />
+          </div>
+        </div>
+        <div class="mb-5">
+          <label class="block text-xs font-bold text-stone-700 mb-1.5">Alasan Ingin Bergabung &amp; Pengalaman Singkat</label>
+          <textarea id="reg-reason" rows="2" placeholder="Ceritakan singkat motivasi Anda menjadi pendengar..." class="w-full px-3.5 py-2 rounded-xl border border-sand-200 text-sm bg-white focus:outline-none focus:border-sage-600"></textarea>
+        </div>
+
+        <button onclick="sendListenerRegistration()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-sage-600 hover:bg-sage-700 text-white font-semibold text-sm transition">
+          Kirim Pendaftaran &amp; Jadwalkan Tes Simulasi via WA
+        </button>
+      </div>
     </div>
-  </section>
+  </main>
 
-  <!-- Result / Catalog Section -->
-  <section id="katalog-pendengar" class="py-10 px-4 sm:px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-3">
-        <div>
-          <h3 id="result-title" class="text-xl sm:text-2xl font-bold text-stone-800">Pendengar yang Siap Mendengarkan</h3>
-          <p id="result-subtitle" class="text-sm text-stone-500 mt-1">Semua pendengar terikat kode etik kerahasiaan mutlak.</p>
-        </div>
-        <div class="flex gap-2 flex-wrap">
-          <button onclick="filterQuick('all')" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-800 text-white">Semua</button>
-          <button onclick="filterQuick('online')" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-sand-200 text-stone-700 hover:bg-sand-100">Sedang Online</button>
-          <button onclick="filterQuick('peer')" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-sand-200 text-stone-700 hover:bg-sand-100">Peer Listener</button>
-          <button onclick="filterQuick('konselor')" class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white border border-sand-200 text-stone-700 hover:bg-sand-100">Konselor</button>
-        </div>
+  <!-- ========================================================= -->
+  <!-- VIEW 3: KIT PROMOSI ORGANIK (THREADS, IG REELS, WA)       -->
+  <!-- ========================================================= -->
+  <main id="view-promosi" class="hidden py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-semibold">Launch Kit Minggu Pertama</span>
+        <h2 class="text-2xl sm:text-4xl font-bold text-stone-900 mt-4 mb-3">Naskah Promosi Tanpa Biaya Iklan</h2>
+        <p class="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto">
+          Gunakan draf <em>micro-storytelling</em> di bawah ini untuk diposting di <strong>Threads (@awahita.info)</strong>, <strong>Instagram Reels/TikTok</strong>, dan <strong>Status WhatsApp</strong>. Tautan website Anda sudah otomatis disematkan.
+        </p>
       </div>
 
-      <!-- Listener Cards Container -->
-      <div id="listeners-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Rendered by JavaScript -->
+      <div class="space-y-6">
+        <!-- Template 1: Threads / X -->
+        <div class="bg-white p-6 rounded-3xl border border-sand-200">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-stone-800 bg-sand-100 px-3 py-1 rounded-full">1. Postingan Threads / X (Jam 20.00 - 22.00 WIB)</span>
+            <button onclick="copyPromo('promo-1', this)" class="text-xs font-semibold text-sage-700 hover:text-sage-800 bg-sage-50 border border-sage-200 px-3 py-1.5 rounded-lg transition">
+              Salin Teks
+            </button>
+          </div>
+          <pre id="promo-1" class="whitespace-pre-wrap font-sans text-sm text-stone-700 bg-sand-50 p-4 rounded-2xl border border-sand-200 leading-relaxed">Hal paling melelahkan dari fase dewasa di Indonesia itu bukan cuma kerjanya yang harus serba cepat—tapi pulang kerja dengan kepala penuh, gaji habis dibagi-bagi buat kebutuhan keluarga, dan nggak punya satu pun tempat buat cerita tanpa takut dianggap "kurang bersyukur".
+
+Kalau malam ini kepalamu lagi berisik dan butuh teman cerita tanpa identitas asli (100% anonim &amp; tanpa dihakimi), ruang cerita kami buka sampai jam 11 malam.
+
+Cek pendengar yang paling cocok sama kondisimu di sini:
+https://lanialala.github.io/ruangcerita-awahita/</pre>
+        </div>
+
+        <!-- Template 2: Script Reels / TikTok -->
+        <div class="bg-white p-6 rounded-3xl border border-sand-200">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-stone-800 bg-sand-100 px-3 py-1 rounded-full">2. Naskah Video Pendek (IG Reels / TikTok 20 Detik)</span>
+            <button onclick="copyPromo('promo-2', this)" class="text-xs font-semibold text-sage-700 hover:text-sage-800 bg-sage-50 border border-sage-200 px-3 py-1.5 rounded-lg transition">
+              Salin Teks
+            </button>
+          </div>
+          <pre id="promo-2" class="whitespace-pre-wrap font-sans text-sm text-stone-700 bg-sand-50 p-4 rounded-2xl border border-sand-200 leading-relaxed">[Visual: Suasana lampu kamar redup / perjalanan pulang kerja malam hari dengan musik ambient tenang]
+
+Teks di Layar (0-5 detik):
+"Pernah nggak sih pengen cerita soal capeknya hidup, tapi bingung mau mulai dari mana?"
+
+Teks di Layar (6-12 detik):
+"Mau cerita ke orang tua, takut bikin mereka kepikiran. Mau cerita ke teman, takut cuma dibalas 'sabar ya, semua orang juga capek'."
+
+Teks di Layar (13-20 detik):
+"Di RuangCerita Awahita, kamu bisa pakai nama samaran, pilih pendengar yang pernah ada di posisimu, dan cukup didengarkan tanpa digurui. Link ada di bio ya."</pre>
+        </div>
+
+        <!-- Template 3: Promo Validasi 20 Sesi Pertama -->
+        <div class="bg-white p-6 rounded-3xl border border-sand-200">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-stone-800 bg-sand-100 px-3 py-1 rounded-full">3. Pengumuman Batch Awal (Validasi Pasar Minggu Pertama)</span>
+            <button onclick="copyPromo('promo-3', this)" class="text-xs font-semibold text-sage-700 hover:text-sage-800 bg-sage-50 border border-sage-200 px-3 py-1.5 rounded-lg transition">
+              Salin Teks
+            </button>
+          </div>
+          <pre id="promo-3" class="whitespace-pre-wrap font-sans text-sm text-stone-700 bg-sand-50 p-4 rounded-2xl border border-sand-200 leading-relaxed">Minggu ini kami membuka 20 kuota sesi cerita khusus (Chat / Voice tanpa kamera) dengan tarif perkenalan mulai Rp25.000/45 menit.
+
+Cocok buat kamu yang lagi:
+- Burnout kerja &amp; tekanan target
+- Terjepit peran generasi sandwich
+- Merasa kesepian di perantauan
+
+Tanpa KTP, tanpa nama asli, 100% rahasia.
+Langsung pilih pendengarmu di: https://lanialala.github.io/ruangcerita-awahita/</pre>
+        </div>
       </div>
     </div>
-  </section>
+  </main>
 
-  <!-- How It Works -->
-  <section id="cara-kerja" class="py-12 px-4 sm:px-6 bg-sand-100/70 border-y border-sand-200 mt-8">
-    <div class="max-w-5xl mx-auto">
-      <h3 class="text-xl sm:text-2xl font-bold text-stone-800 text-center mb-8">Bagaimana Sesi Berlangsung?</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-2xl border border-sand-200">
-          <div class="w-8 h-8 rounded-lg bg-sage-100 text-sage-800 font-bold flex items-center justify-center text-sm mb-4">1</div>
-          <h4 class="font-bold text-stone-800 mb-2">Pilih &amp; Gunakan Nama Samaran</h4>
-          <p class="text-sm text-stone-600 leading-relaxed">Tidak perlu KTP, foto wajah, atau nama asli. Kamu bebas bercerita sebagai dirimu apa adanya tanpa beban sosial.</p>
-        </div>
-        <div class="bg-white p-6 rounded-2xl border border-sand-200">
-          <div class="w-8 h-8 rounded-lg bg-sage-100 text-sage-800 font-bold flex items-center justify-center text-sm mb-4">2</div>
-          <h4 class="font-bold text-stone-800 mb-2">Konfirmasi Jadwal via Admin</h4>
-          <p class="text-sm text-stone-600 leading-relaxed">Klik booking, selesaikan pembayaran via QRIS, dan admin akan menghubungkanmu ke ruang obrolan privat (Chat / Voice tanpa kamera).</p>
-        </div>
-        <div class="bg-white p-6 rounded-2xl border border-sand-200">
-          <div class="w-8 h-8 rounded-lg bg-sage-100 text-sage-800 font-bold flex items-center justify-center text-sm mb-4">3</div>
-          <h4 class="font-bold text-stone-800 mb-2">Ruang Bebas Penghakiman</h4>
-          <p class="text-sm text-stone-600 leading-relaxed">Sesi berdurasi 45 menit. Semua isi percakapan bersifat rahasia dan tidak disimpan setelah sesi berakhir.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Disclaimer & Crisis Banner -->
+  <!-- Disclaimer & Crisis Banner (Shared Footer) -->
   <footer class="py-10 px-4 sm:px-6 text-center max-w-3xl mx-auto">
     <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-left mb-6">
       <p class="text-xs text-amber-900 leading-relaxed">
         <strong>Catatan Penting:</strong> Layanan <em>Peer Listener</em> adalah dukungan emosional non-klinis (teman cerita terlatih) dan bukan pengganti diagnosis medis atau psikiatri. Jika kamu sedang mengalami krisis berat atau memiliki dorongan menyakiti diri sendiri, segera hubungi layanan darurat <strong>119 ext. 8</strong> atau kunjungi fasilitas kesehatan terdekat.
       </p>
     </div>
-    <p class="text-xs text-stone-500">&copy; 2026 RuangCerita. Dibangun untuk menghadirkan ruang aman bagi setiap kepala yang sedang lelah.</p>
+    <p class="text-xs text-stone-500">&copy; 2026 RuangCerita by Awahita. Ruang aman bagi setiap kepala yang sedang lelah.</p>
   </footer>
 
   <!-- Booking Modal -->
@@ -291,10 +473,10 @@
     // ==========================================
     // KONFIGURASI NOMOR WHATSAPP ADMIN (GANTI DI SINI)
     // ==========================================
-    const ADMIN_WA_NUMBER = "6281234567890"; // Gunakan format 628xxx tanpa tanda + atau spasi
+    const ADMIN_WA_NUMBER = "6281234567890"; // Ganti dengan nomor WA Admin Anda
 
     // ==========================================
-    // DATABASE PENDENGAR (Bisa diedit / ditambah kapan saja)
+    // DATABASE PENDENGAR
     // ==========================================
     const listenersData = [
       {
@@ -307,8 +489,6 @@
         duration: "45 Menit",
         topics: ["karier", "kesepian"],
         styles: ["didengarkan"],
-        rating: "4.9",
-        sessions: 42,
         avatarBg: "bg-emerald-100 text-emerald-800",
         initials: "NR",
         bio: "Pernah mengalami fase burnout parah di agency dan merantau jauh dari keluarga. Siap mendengarkan ceritamu dengan tenang tanpa memotong pembicaraan.",
@@ -324,8 +504,6 @@
         duration: "45 Menit",
         topics: ["keluarga", "karier"],
         styles: ["didengarkan", "diskusi"],
-        rating: "5.0",
-        sessions: 68,
         avatarBg: "bg-amber-100 text-amber-800",
         initials: "DM",
         bio: "Ayah satu anak dan bagian dari generasi sandwich. Paham rasanya membagi gaji dan pikiran antara keluarga inti dan orang tua. Nyaman diajak ngobrol santai.",
@@ -341,8 +519,6 @@
         duration: "45 Menit",
         topics: ["relasi", "kesepian"],
         styles: ["didengarkan"],
-        rating: "4.9",
-        sessions: 35,
         avatarBg: "bg-rose-100 text-rose-800",
         initials: "TR",
         bio: "Tempat aman buat kamu yang sedang patah hati, overthinking soal masa depan, atau merasa kesepian di tengah keramaian.",
@@ -358,8 +534,6 @@
         duration: "60 Menit",
         topics: ["karier", "keluarga", "kesepian", "relasi"],
         styles: ["diskusi", "didengarkan"],
-        rating: "5.0",
-        sessions: 115,
         avatarBg: "bg-sky-100 text-sky-800",
         initials: "RP",
         bio: "Membantu mengurai stres kronis, kecemasan dunia kerja, dan konflik relasi dengan pendekatan praktis yang membumi dan terstruktur.",
@@ -375,8 +549,6 @@
         duration: "45 Menit",
         topics: ["keluarga", "relasi"],
         styles: ["didengarkan", "diskusi"],
-        rating: "4.9",
-        sessions: 54,
         avatarBg: "bg-purple-100 text-purple-800",
         initials: "SR",
         bio: "Ibu bekerja yang memahami kelelahan mental mengurus rumah, anak, dan pekerjaan sekaligus. Ruang hangat untuk melepas penat tanpa dihakimi.",
@@ -392,8 +564,6 @@
         duration: "60 Menit",
         topics: ["kesepian", "relasi", "karier"],
         styles: ["diskusi"],
-        rating: "4.9",
-        sessions: 89,
         avatarBg: "bg-teal-100 text-teal-800",
         initials: "NP",
         bio: "Fokus mendampingi dewasa muda (quarter-life crisis) menata ulang prioritas hidup, kepercayaan diri, dan batasan sehat (boundaries).",
@@ -401,16 +571,21 @@
       }
     ];
 
-    // State Pilihan User
-    let userPrefs = {
-      topic: null,
-      style: null,
-      tier: null
-    };
+    // Navigasi Multi-Tab dalam Single-Page App
+    function switchView(viewName) {
+      ['pencerita', 'pendengar', 'promosi'].forEach(v => {
+        document.getElementById(`view-${v}`).classList.add('hidden');
+        document.getElementById(`tab-${v}`).classList.remove('active');
+      });
+      document.getElementById(`view-${viewName}`).classList.remove('hidden');
+      document.getElementById(`tab-${viewName}`).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
+    // State Matching
+    let userPrefs = { topic: null, style: null, tier: null };
     let selectedListener = null;
 
-    // Fungsi Pilih Opsi di Wizard
     function selectOption(category, value, btnElement) {
       userPrefs[category] = value;
       const parent = btnElement.parentElement;
@@ -418,7 +593,6 @@
       btnElement.classList.add('selected');
     }
 
-    // Fungsi Reset
     function resetMatching() {
       userPrefs = { topic: null, style: null, tier: null };
       document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
@@ -427,7 +601,6 @@
       renderListeners(listenersData);
     }
 
-    // Fungsi Algoritma Matching Client-Side
     function runMatching() {
       const scored = listenersData.map(listener => {
         let score = 0;
@@ -445,15 +618,12 @@
           maxScore += 20;
           if (listener.tier === userPrefs.tier) score += 20;
         }
-
-        // Bonus kecil jika sedang online
         if (listener.online) score += 5;
 
         const matchPercent = maxScore > 0 ? Math.min(99, Math.round((score / (maxScore + 5)) * 100)) : null;
         return { ...listener, score, matchPercent };
       });
 
-      // Urutkan berdasarkan skor tertinggi
       scored.sort((a, b) => b.score - a.score);
 
       document.getElementById('result-title').innerText = "Rekomendasi Paling Cocok Untukmu";
@@ -463,7 +633,6 @@
       document.getElementById('katalog-pendengar').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Filter Cepat di Katalog
     function filterQuick(type) {
       let filtered = listenersData;
       if (type === 'online') filtered = listenersData.filter(l => l.online);
@@ -472,7 +641,6 @@
       renderListeners(filtered, false);
     }
 
-    // Render Kartu Pendengar
     function renderListeners(list, showMatchBadge = false) {
       const grid = document.getElementById('listeners-grid');
       grid.innerHTML = '';
@@ -529,7 +697,6 @@
       });
     }
 
-    // Modal Functions
     function openBookingModal(listenerId) {
       selectedListener = listenersData.find(l => l.id === listenerId);
       if (!selectedListener) return;
@@ -543,7 +710,6 @@
       document.getElementById('booking-modal').classList.add('hidden');
     }
 
-    // Kirim Format Booking ke WhatsApp Admin
     function sendToWhatsApp() {
       const alias = document.getElementById('input-alias').value.trim() || "Anonim";
       const medium = document.getElementById('input-medium').value;
@@ -559,7 +725,7 @@
 
       const chosenTopic = userPrefs.topic ? topicMap[userPrefs.topic] : "Umum / Belum dipilih";
 
-      let message = `Halo Admin RuangCerita, saya ingin menjadwalkan sesi cerita:\n\n`;
+      let message = `Halo Admin RuangCerita Awahita, saya ingin menjadwalkan sesi cerita:\n\n`;
       message += `• *Nama Samaran:* ${alias}\n`;
       message += `• *Pendengar:* ${selectedListener.name} (${selectedListener.price})\n`;
       message += `• *Topik:* ${chosenTopic}\n`;
@@ -570,12 +736,45 @@
       }
       message += `\nMohon info ketersediaan jadwal dan QRIS pembayarannya. Terima kasih.`;
 
-      const encodedUrl = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(message)}`;
-      window.open(encodedUrl, '_blank');
+      window.open(`https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
       closeModal();
     }
 
-    // Render awal saat halaman dibuka
+    // Kirim Pendaftaran Mitra Pendengar ke WA Admin
+    function sendListenerRegistration() {
+      const name = document.getElementById('reg-name').value.trim();
+      const age = document.getElementById('reg-age').value.trim();
+      const role = document.getElementById('reg-role').value;
+      const topic = document.getElementById('reg-topic').value.trim();
+      const reason = document.getElementById('reg-reason').value.trim();
+
+      if (!name || !age) {
+        alert("Mohon isi Nama dan Usia/Domisili terlebih dahulu.");
+        return;
+      }
+
+      let message = `Halo Admin Awahita, saya ingin mendaftar sebagai mitra pendengar:\n\n`;
+      message += `• *Nama:* ${name}\n`;
+      message += `• *Usia & Domisili:* ${age}\n`;
+      message += `• *Peran:* ${role}\n`;
+      message += `• *Topik Dikuasai:* ${topic || "-"}\n`;
+      message += `• *Motivasi:* ${reason || "-"}\n\n`;
+      message += `Saya bersedia mengikuti SOP kerahasiaan dan tes simulasi Active Listening. Terima kasih.`;
+
+      window.open(`https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    // Salin Teks Promosi
+    function copyPromo(elementId, btn) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.innerText;
+        btn.innerText = "Tersalin!";
+        setTimeout(() => btn.innerText = original, 2000);
+      });
+    }
+
+    // Render Awal
     renderListeners(listenersData);
   </script>
 </body>
