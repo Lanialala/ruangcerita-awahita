@@ -75,15 +75,12 @@
       </button>
 
       <!-- Navigation Tabs -->
-      <nav class="flex items-center gap-4 sm:gap-6">
+      <nav class="flex items-center gap-5 sm:gap-8">
         <button id="tab-pencerita" onclick="switchView('pencerita')" class="nav-tab active py-5 text-xs sm:text-sm text-stone-600 hover:text-sage-700 transition">
           Cari Pendengar
         </button>
         <button id="tab-pendengar" onclick="switchView('pendengar')" class="nav-tab py-5 text-xs sm:text-sm text-stone-600 hover:text-sage-700 transition">
           SOP &amp; Gabung Pendengar
-        </button>
-        <button id="tab-promosi" onclick="switchView('promosi')" class="nav-tab py-5 text-xs sm:text-sm text-stone-600 hover:text-sage-700 transition">
-          Kit Promosi
         </button>
       </nav>
     </div>
@@ -342,78 +339,6 @@
     </div>
   </main>
 
-  <!-- ========================================================= -->
-  <!-- VIEW 3: KIT PROMOSI ORGANIK (THREADS, IG REELS, WA)       -->
-  <!-- ========================================================= -->
-  <main id="view-promosi" class="hidden py-12 px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-10">
-        <span class="px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-semibold">Launch Kit Minggu Pertama</span>
-        <h2 class="text-2xl sm:text-4xl font-bold text-stone-900 mt-4 mb-3">Naskah Promosi Tanpa Biaya Iklan</h2>
-        <p class="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto">
-          Gunakan draf <em>micro-storytelling</em> di bawah ini untuk diposting di <strong>Threads (@awahita.info)</strong>, <strong>Instagram Reels/TikTok</strong>, dan <strong>Status WhatsApp</strong>. Tautan website Anda sudah otomatis disematkan.
-        </p>
-      </div>
-
-      <div class="space-y-6">
-        <!-- Template 1: Threads / X -->
-        <div class="bg-white p-6 rounded-3xl border border-sand-200">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold text-stone-800 bg-sand-100 px-3 py-1 rounded-full">1. Postingan Threads / X (Jam 20.00 - 22.00 WIB)</span>
-            <button onclick="copyPromo('promo-1', this)" class="text-xs font-semibold text-sage-700 hover:text-sage-800 bg-sage-50 border border-sage-200 px-3 py-1.5 rounded-lg transition">
-              Salin Teks
-            </button>
-          </div>
-          <pre id="promo-1" class="whitespace-pre-wrap font-sans text-sm text-stone-700 bg-sand-50 p-4 rounded-2xl border border-sand-200 leading-relaxed">Hal paling melelahkan dari fase dewasa di Indonesia itu bukan cuma kerjanya yang harus serba cepat—tapi pulang kerja dengan kepala penuh, gaji habis dibagi-bagi buat kebutuhan keluarga, dan nggak punya satu pun tempat buat cerita tanpa takut dianggap "kurang bersyukur".
-
-Kalau malam ini kepalamu lagi berisik dan butuh teman cerita tanpa identitas asli (100% anonim &amp; tanpa dihakimi), ruang cerita kami buka sampai jam 11 malam.
-
-Cek pendengar yang paling cocok sama kondisimu di sini:
-https://lanialala.github.io/ruangcerita-awahita/</pre>
-        </div>
-
-        <!-- Template 2: Script Reels / TikTok -->
-        <div class="bg-white p-6 rounded-3xl border border-sand-200">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold text-stone-800 bg-sand-100 px-3 py-1 rounded-full">2. Naskah Video Pendek (IG Reels / TikTok 20 Detik)</span>
-            <button onclick="copyPromo('promo-2', this)" class="text-xs font-semibold text-sage-700 hover:text-sage-800 bg-sage-50 border border-sage-200 px-3 py-1.5 rounded-lg transition">
-              Salin Teks
-            </button>
-          </div>
-          <pre id="promo-2" class="whitespace-pre-wrap font-sans text-sm text-stone-700 bg-sand-50 p-4 rounded-2xl border border-sand-200 leading-relaxed">[Visual: Suasana lampu kamar redup / perjalanan pulang kerja malam hari dengan musik ambient tenang]
-
-Teks di Layar (0-5 detik):
-"Pernah nggak sih pengen cerita soal capeknya hidup, tapi bingung mau mulai dari mana?"
-
-Teks di Layar (6-12 detik):
-"Mau cerita ke orang tua, takut bikin mereka kepikiran. Mau cerita ke teman, takut cuma dibalas 'sabar ya, semua orang juga capek'."
-
-Teks di Layar (13-20 detik):
-"Di RuangCerita Awahita, kamu bisa pakai nama samaran, pilih pendengar yang pernah ada di posisimu, dan cukup didengarkan tanpa digurui. Link ada di bio ya."</pre>
-        </div>
-
-        <!-- Template 3: Promo Validasi 20 Sesi Pertama -->
-        <div class="bg-white p-6 rounded-3xl border border-sand-200">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-bold text-stone-800 bg-sand-100 px-3 py-1 rounded-full">3. Pengumuman Batch Awal (Validasi Pasar Minggu Pertama)</span>
-            <button onclick="copyPromo('promo-3', this)" class="text-xs font-semibold text-sage-700 hover:text-sage-800 bg-sage-50 border border-sage-200 px-3 py-1.5 rounded-lg transition">
-              Salin Teks
-            </button>
-          </div>
-          <pre id="promo-3" class="whitespace-pre-wrap font-sans text-sm text-stone-700 bg-sand-50 p-4 rounded-2xl border border-sand-200 leading-relaxed">Minggu ini kami membuka 20 kuota sesi cerita khusus (Chat / Voice tanpa kamera) dengan tarif perkenalan mulai Rp25.000/45 menit.
-
-Cocok buat kamu yang lagi:
-- Burnout kerja &amp; tekanan target
-- Terjepit peran generasi sandwich
-- Merasa kesepian di perantauan
-
-Tanpa KTP, tanpa nama asli, 100% rahasia.
-Langsung pilih pendengarmu di: https://lanialala.github.io/ruangcerita-awahita/</pre>
-        </div>
-      </div>
-    </div>
-  </main>
-
   <!-- Disclaimer & Crisis Banner (Shared Footer) -->
   <footer class="py-10 px-4 sm:px-6 text-center max-w-3xl mx-auto">
     <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-left mb-6">
@@ -573,7 +498,7 @@ Langsung pilih pendengarmu di: https://lanialala.github.io/ruangcerita-awahita/<
 
     // Navigasi Multi-Tab dalam Single-Page App
     function switchView(viewName) {
-      ['pencerita', 'pendengar', 'promosi'].forEach(v => {
+      ['pencerita', 'pendengar'].forEach(v => {
         document.getElementById(`view-${v}`).classList.add('hidden');
         document.getElementById(`tab-${v}`).classList.remove('active');
       });
@@ -762,16 +687,6 @@ Langsung pilih pendengarmu di: https://lanialala.github.io/ruangcerita-awahita/<
       message += `Saya bersedia mengikuti SOP kerahasiaan dan tes simulasi Active Listening. Terima kasih.`;
 
       window.open(`https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-
-    // Salin Teks Promosi
-    function copyPromo(elementId, btn) {
-      const text = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const original = btn.innerText;
-        btn.innerText = "Tersalin!";
-        setTimeout(() => btn.innerText = original, 2000);
-      });
     }
 
     // Render Awal
